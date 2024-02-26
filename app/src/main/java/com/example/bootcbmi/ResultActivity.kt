@@ -3,16 +3,17 @@ package com.example.bootcbmi
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import com.example.bootcbmi.databinding.ActivityResultBinding
 import kotlin.math.pow
 import kotlin.math.round
 
 class ResultActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityResultBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+        binding = ActivityResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val height = intent.getIntExtra("height", 0)
         val weight = intent.getIntExtra("weight", 0)
@@ -49,23 +50,11 @@ class ResultActivity : AppCompatActivity() {
             resImage = R.drawable.img_lv6
             resColor = Color.RED
         }
-
-
-        val tv_resValue = findViewById<TextView>(R.id.tv_resValue)
-        val tv_resText = findViewById<TextView>(R.id.tv_resText)
-        val iv_resImage = findViewById<ImageView>(R.id.iv_resImage)
-
-        tv_resValue.text = value.toString()
-        tv_resText.text = resultText
-
-        tv_resText.setTextColor(resColor)
-
-        iv_resImage.setImageResource(resImage)
-
-
-        val submitButton = findViewById<Button>(R.id.btn_close)
-
-        submitButton.setOnClickListener{
+        binding.tvResValue.text = value.toString()
+        binding.tvResText.text = resultText
+        binding.tvResText.setTextColor(resColor)
+        binding.ivResImage.setImageResource(resImage)
+        binding.btnClose.setOnClickListener{
             finish()
         }
     }
